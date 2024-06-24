@@ -16,7 +16,7 @@ ilceCombobox.set("İlçe Seçin")
 
 # İkinci combobox oluştur
 mahalleCombobox = ttk.Combobox(root)
-mahalleCombobox.set("Mahalle seçin")
+mahalleCombobox.set("Mahalle Seçin")
 
 # İlk combobox'tan seçim yapıldığında çağrılacak fonksiyon
 def mahalleGuncelleme(event):
@@ -73,6 +73,15 @@ def tasinmaz_adi_olustur():
     # Sınıf örneği oluştur
     tasinmaz = tasinmazAdi(ilce, mahalle, ada, parsel)
     tasinmazEtiket.config(text=f"Oluşturulan Taşınmaz Adı: {tasinmaz.olusanTasinmazAdi}")
+
+    # Chrome'da parsel sorgusunu yap ve KML dosyasını indir
+    indirme_basarili = chrome.parsel_sorguyu_ac(ilce, mahalle, ada, parsel)
+
+    # İndirme başarılıysa etikete mesaj yaz
+    if indirme_basarili:
+        tasinmazEtiket.config(text="İndirme tamamlandı.")
+    else:
+        tasinmazEtiket.config(text="İndirme başarısız.")
 
 # Buton
 button = tk.Button(root, text="Doğal Sit Durumunu Sorgula", command=lambda: chrome.parsel_sorguyu_ac(ilceCombobox.get(), mahalleCombobox.get(), adaNo.get(), parselNo.get()))

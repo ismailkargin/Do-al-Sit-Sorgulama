@@ -160,11 +160,10 @@ def parsel_sorguyu_ac(ilce, mahalle, ada, parsel):
             wait_for_loading_to_finish(driver)
 
 
-
-
+            return True  # İndirme başarılı
 
     finally:
         # Tarayıcıyı kapatma (gerekirse)
-        # driver.quit()
-        while True:
-            continue
+        driver.quit()
+
+        return False  # İndirme başarısız
