@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+import chrome
 import ilce_mahalle_listeleri
 from tasinmazAdiOlustuma import tasinmazAdi  # doğru sınıfı import ediyoruz
 
@@ -74,7 +75,7 @@ def tasinmaz_adi_olustur():
     tasinmazEtiket.config(text=f"Oluşturulan Taşınmaz Adı: {tasinmaz.olusanTasinmazAdi}")
 
 # Buton
-button = tk.Button(root, text="Doğal Sit Durumunu Sorgula", command=tasinmaz_adi_olustur)
+button = tk.Button(root, text="Doğal Sit Durumunu Sorgula", command=lambda: chrome.parsel_sorguyu_ac(ilceCombobox.get(), mahalleCombobox.get(), adaNo.get(), parselNo.get()))
 
 # Taşınmaz adı için etiket
 tasinmazEtiket = tk.Label(root, text="")
