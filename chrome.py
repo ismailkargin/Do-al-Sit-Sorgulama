@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
 
 def wait_for_loading_to_finish(driver):
     WebDriverWait(driver, 10).until(
@@ -97,6 +98,68 @@ def parsel_sorguyu_ac(ilce, mahalle, ada, parsel):
             print("Kayıt Bulunamadı")
         elif message == "Parsel bilgilerini görüntülemek için seçili parsele tıklayınız.":
             print("Parsel bilgilerini görüntülemek için seçili parsele tıklayınız.")
+
+        # Mesajın içeriğini kontrol et
+        if message == "Parsel bilgilerini görüntülemek için seçili parsele tıklayınız.":
+            # Path elementini bulma
+            path_element = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "path.leaflet-interactive"))
+            )
+
+            # Path elementine tıklama işlemi
+            actions = ActionChains(driver)
+            actions.move_to_element(path_element).click().perform()
+
+            # Tıklamadan sonra yüklenmenin bitmesini bekleyin
+            wait_for_loading_to_finish(driver)
+
+
+
+            # 3 nokta elementini bulma
+            button_element = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, "button.close.dropdown-toggle"))
+            )
+
+            # 3 nokta elementine tıklama işlemi
+            button_element.click()
+
+            # Tıklamadan sonra yüklenmenin bitmesini bekleyin
+            wait_for_loading_to_finish(driver)
+
+
+
+            # "İndirme" linkini bulma ve tıklama işlemi
+            indirme_link = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'İndirme')]"))
+            )
+            indirme_link.click()
+
+            # Tıklamadan sonra yüklenmenin bitmesini bekleyin
+            wait_for_loading_to_finish(driver)
+
+
+
+            # "KML" seçeneğini bulma ve tıklama işlemi
+            kml_secimi = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//h5[@id='export-format-text' and text()='KML']"))
+            )
+            kml_secimi.click()
+
+            # Tıklamadan sonra yüklenmenin bitmesini bekleyin
+            wait_for_loading_to_finish(driver)
+
+
+
+            # "İndir" butonunu bulma ve tıklama işlemi
+            indir_buton = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.ID, "export-data"))
+            )
+            indir_buton.click()
+
+            # Tıklamadan sonra yüklenmenin bitmesini bekleyin
+            wait_for_loading_to_finish(driver)
+
+
 
 
 
