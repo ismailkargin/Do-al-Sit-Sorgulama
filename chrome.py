@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -156,14 +158,15 @@ def parsel_sorguyu_ac(ilce, mahalle, ada, parsel):
             )
             indir_buton.click()
 
-            # Tıklamadan sonra yüklenmenin bitmesini bekleyin
+            # Tıklamadan sonra yüklemenin bitmesini bekleyin
             wait_for_loading_to_finish(driver)
+            time.sleep(2)
 
 
             return True  # İndirme başarılı
 
     finally:
         # Tarayıcıyı kapatma (gerekirse)
-        driver.quit()
+        #driver.quit()
 
         return False  # İndirme başarısız
